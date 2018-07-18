@@ -33,7 +33,8 @@ import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.apereo.inspektr.common.web.ClientInfo;
 import org.apereo.inspektr.common.web.ClientInfoHolder;
-import org.junit.runner.RunWith;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +42,8 @@ import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.test.MockRequestContext;
 
@@ -53,7 +55,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Marvin S. Addison
  * @since 3.0.0
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     CasJdbcThrottlingConfiguration.class,
     CasCoreAuditConfiguration.class,
@@ -82,6 +83,11 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class JdbcThrottledSubmissionHandlerInterceptorAdapterTests extends
     AbstractThrottledSubmissionHandlerInterceptorAdapterTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("casAuthenticationManager")

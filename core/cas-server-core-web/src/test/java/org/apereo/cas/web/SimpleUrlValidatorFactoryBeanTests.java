@@ -3,8 +3,6 @@ package org.apereo.cas.web;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +10,6 @@ import static org.junit.Assert.*;
  * @author swoeste
  * @since 5.1.0
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class SimpleUrlValidatorFactoryBeanTests {
 

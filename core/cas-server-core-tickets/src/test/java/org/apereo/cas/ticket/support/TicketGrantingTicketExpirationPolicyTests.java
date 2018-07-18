@@ -13,8 +13,6 @@ import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.File;
@@ -28,7 +26,6 @@ import static org.junit.Assert.*;
  * @author William G. Thompson, Jr.
  * @since 3.4.10
  */
-@RunWith(JUnit4.class)
 @DirtiesContext
 @Slf4j
 public class TicketGrantingTicketExpirationPolicyTests {

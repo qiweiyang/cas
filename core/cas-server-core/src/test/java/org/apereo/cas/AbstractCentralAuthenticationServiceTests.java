@@ -37,7 +37,8 @@ import org.apereo.cas.web.support.ArgumentExtractor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.runner.RunWith;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,7 +50,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 /**
  * @author Scott Battaglia
@@ -85,7 +87,6 @@ import org.springframework.test.context.junit4.SpringRunner;
     CasPersonDirectoryTestConfiguration.class,
     CasCoreWebflowConfiguration.class,
     CasCoreValidationConfiguration.class})
-@RunWith(SpringRunner.class)
 @EnableAspectJAutoProxy
 @DirtiesContext
 @TestPropertySource(locations = {"classpath:/core.properties"})
@@ -93,6 +94,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Setter
 @Getter
 public abstract class AbstractCentralAuthenticationServiceTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     private CentralAuthenticationService centralAuthenticationService;

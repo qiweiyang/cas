@@ -3,8 +3,6 @@ package org.apereo.cas.monitor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.junit.Assert.*;
@@ -15,7 +13,6 @@ import static org.junit.Assert.*;
  * @author Marvin S. Addison
  * @since 3.5.0
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class MemoryHealthIndicatorTests {
 

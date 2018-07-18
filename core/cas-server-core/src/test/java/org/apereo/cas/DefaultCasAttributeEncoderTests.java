@@ -26,13 +26,15 @@ import org.apereo.cas.services.ServicesManager;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -48,7 +50,6 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 4.1
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     CasCoreServicesConfiguration.class,
     CasCoreAuthenticationConfiguration.class,
@@ -74,6 +75,11 @@ import static org.junit.Assert.*;
 @EnableScheduling
 @Slf4j
 public class DefaultCasAttributeEncoderTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     private Map<String, Object> attributes;
 

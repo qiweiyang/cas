@@ -10,8 +10,6 @@ import org.apereo.cas.util.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 import org.springframework.binding.message.DefaultMessageResolver;
 import org.springframework.binding.message.MessageContext;
@@ -30,7 +28,6 @@ import static org.mockito.Mockito.*;
  * @author Marvin S. Addison
  * @since 4.0.0
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class AuthenticationExceptionHandlerActionTests {
 

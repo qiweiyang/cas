@@ -10,17 +10,18 @@ import org.apereo.cas.trusted.util.MultifactorAuthenticationTrustUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.LocalDateTime;
@@ -36,7 +37,6 @@ import static org.junit.Assert.*;
  * @author Daniel Frett
  * @since 5.3.0
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     JdbcMultifactorAuthnTrustConfiguration.class,
     MultifactorAuthnTrustedDeviceFingerprintConfiguration.class,
@@ -48,10 +48,16 @@ import static org.junit.Assert.*;
 @EnableScheduling
 @Slf4j
 public class JpaMultifactorAuthenticationTrustStorageTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
     private static final String PRINCIPAL = "principal";
     private static final String PRINCIPAL2 = "principal2";
     private static final String GEOGRAPHY = "geography";
     private static final String DEVICE_FINGERPRINT = "deviceFingerprint";
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -25,8 +25,9 @@ import org.apereo.cas.otp.repository.token.OneTimeTokenRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -34,7 +35,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import static org.junit.Assert.*;
@@ -45,7 +47,6 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 5.2.0
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     JpaGoogleAuthenticatorTokenCredentialRepositoryTests.JpaTestConfiguration.class,
     GoogleAuthenticatorJpaConfiguration.class,
@@ -76,6 +77,11 @@ import static org.junit.Assert.*;
 @EnableScheduling
 @Slf4j
 public class GoogleAuthenticatorJpaTokenRepositoryTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("oneTimeTokenAuthenticatorTokenRepository")

@@ -32,7 +32,8 @@ import org.apereo.cas.web.config.CasValidationConfiguration;
 import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.runner.RunWith;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -40,7 +41,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.util.Collection;
 
@@ -50,7 +52,6 @@ import java.util.Collection;
  * @author Misagh Moayyed
  * @since 4.2
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     AbstractOpenSamlTests.SamlTestConfiguration.class,
     WsFederationAuthenticationConfiguration.class,
@@ -89,6 +90,11 @@ import java.util.Collection;
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 @Slf4j
 public class AbstractWsFederationTests extends AbstractOpenSamlTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("wsFederationConfigurations")

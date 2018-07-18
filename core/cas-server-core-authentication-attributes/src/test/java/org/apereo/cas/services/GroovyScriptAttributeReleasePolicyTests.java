@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +17,6 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 4.1
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class GroovyScriptAttributeReleasePolicyTests {
     private static final File JSON_FILE = new File(FileUtils.getTempDirectoryPath(), "groovyScriptAttributeReleasePolicy.json");

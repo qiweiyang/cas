@@ -21,8 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -37,7 +35,6 @@ import static org.mockito.Mockito.*;
  * @author Jerome Leleu
  * @since 4.0.0
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class DefaultLogoutManagerTests {
     private static final String ID = "id";

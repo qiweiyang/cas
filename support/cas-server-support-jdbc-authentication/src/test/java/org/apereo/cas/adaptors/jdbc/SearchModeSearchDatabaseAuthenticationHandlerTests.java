@@ -6,16 +6,17 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,6 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 4.0.0
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     RefreshAutoConfiguration.class,
     DatabaseAuthenticationTestConfiguration.class
@@ -40,6 +40,11 @@ import static org.junit.Assert.*;
 @Slf4j
 @DirtiesContext
 public class SearchModeSearchDatabaseAuthenticationHandlerTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

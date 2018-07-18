@@ -15,8 +15,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +25,8 @@ import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -37,7 +39,6 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 5.3.0
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
     RestMultifactorAuthenticationTrustConfiguration.class,
     MultifactorAuthnTrustedDeviceFingerprintConfiguration.class,
@@ -47,7 +48,13 @@ import static org.junit.Assert.*;
 @Slf4j
 @TestPropertySource(properties = "cas.authn.mfa.trusted.rest.url=http://localhost:9297")
 public class RestMultifactorAuthenticationTrustStorageTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
     private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("mfaTrustEngine")

@@ -27,7 +27,6 @@ import static org.mockito.Mockito.*;
  * @author Misagh Moayyed
  * @since 5.0.0
  */
-@RunWith(JUnit4.class)
 @Slf4j
 public class ReturnMappedAttributeReleasePolicyTests {
 

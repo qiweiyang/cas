@@ -9,12 +9,14 @@ import org.apereo.cas.util.spring.ApplicationContextProvider;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import static org.junit.Assert.*;
 
@@ -24,11 +26,15 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 4.2.0
  */
-@RunWith(SpringRunner.class)
 @Import(SamlGoogleAppsConfiguration.class)
 @TestPropertySource(locations = "classpath:/gapps.properties")
 @Slf4j
 public class GoogleAppsSamlAuthenticationRequestTests extends AbstractOpenSamlTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     private ApplicationContextProvider applicationContextProvider;

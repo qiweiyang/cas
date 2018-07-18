@@ -19,9 +19,10 @@ import org.apereo.cas.config.CasPersonDirectoryConfiguration;
 import org.apereo.cas.config.JmsTicketRegistryConfiguration;
 import org.apereo.cas.config.support.CasWebApplicationServiceFactoryConfiguration;
 import org.apereo.cas.logout.config.CasCoreLogoutConfiguration;
-import org.apereo.cas.util.junit.ConditionalParameterizedRunner;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,11 @@ import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This is {@link JmsTicketRegistryTests}.
@@ -40,7 +43,7 @@ import java.util.Collection;
  * @author Misagh Moayyed
  * @since 5.2.0
  */
-@RunWith(ConditionalParameterizedRunner.class)
+@RunWith(Parameterized.class)
 @Slf4j
 @SpringBootTest(classes = {
     ActiveMQAutoConfiguration.class,
@@ -68,6 +71,11 @@ import java.util.Collection;
 },
     properties = {"spring.activemq.pool.enabled=false", "spring.activemq.packages.trust-all=true"})
 public class JmsTicketRegistryTests extends BaseSpringRunnableTicketRegistryTests {
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("ticketRegistry")
@@ -79,7 +87,7 @@ public class JmsTicketRegistryTests extends BaseSpringRunnableTicketRegistryTest
 
     @Parameterized.Parameters
     public static Collection<Object> getTestParameters() {
-        return Arrays.asList(false);
+        return Collections.singletonList(false);
     }
 
     @Override
